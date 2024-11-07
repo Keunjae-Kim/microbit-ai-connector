@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- 페이지의 기본 메타 정보 및 CSS, JS 라이브러리 불러오기 -->
     <meta charset="utf-8" />
     <title>AI Training</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -13,16 +12,9 @@
     <div id="page-1">
       <div class="page-container">
         <h1 class="title">MAKE: AI ROBOTS</h1>
-        <p>
-          Give your micro:bit project AI superpowers! Use the buttons below to get your Teachable Machine image recognition model and starter code. Then click the third button to connect everything!
-        </p>
-        <a href="https://teachablemachine.withgoogle.com/" target="_blank" id="GA-GTM-Btn-1" class="small-btn">
-          1. Google Teachable Machine AI Model
-        </a>
-        <a href="https://makecode.microbit.org/_Mjw1p2JsUUUE" target="_blank" id="GA-Micro-Btn-1" class="small-btn">
-          2. Starter micro:bit code
-        </a>
-        <button id="requestPortButton" class="small-btn">3. Connect your micro:bit to your AI!</button>
+        <button id="requestPortButton" class="small-btn">
+          Connect your micro:bit to your AI!
+        </button>
       </div>
     </div>
 
@@ -31,42 +23,42 @@
 
       connectButton.addEventListener("click", async () => {
         try {
-          console.log('Requesting device...');
-          // Request device with specific vendorId and productId for mbed serial port
+          // Request micro:bit device
           const device = await navigator.usb.requestDevice({
-            filters: [{ vendorId: 0x0d28, productId: 0x0204 }],
+            filters: [{ vendorId: 0x0d28 }] // micro:bit vendor ID
           });
-          console.log('Device requested:', device);
 
           await device.open(); // Open the device
-          console.log('Device opened.');
-
           if (device.configuration === null) {
             await device.selectConfiguration(1);
-            console.log('Configuration selected.');
           }
 
-          await device.claimInterface(0); // Claim the first available interface
-          console.log('Interface claimed.');
+          // Print all available interfaces
+          console.log("Available interfaces:");
+          for (let i = 0; i < device.configuration.interfaces.length; i++) {
+            console.log(`Interface ${i}:`, device.configuration.interfaces[i]);
+          }
 
-          console.log("Micro:bit connected");
+          // Claim the appropriate interface for serial communication
+          // Typically, micro:bit uses interface 0 for serial communication
+          await device.claimInterface(0); 
+          console.log("Micro:bit connected to serial port");
 
-          // Display connection name
-          const portName = 'mbed Serial port - COM5'; // Adjusted for display
-          console.log(`Connected to: ${portName}`);
-
-          // Proceed to the next page
+          // Display connected message and proceed to the next page
           document.getElementById("page-1").classList.add("hide");
-          document.getElementById("page-2").classList.remove("hide");
+          alert("Successfully connected to micro:bit - mbed Serial Port");
         } catch (err) {
           console.error("Error connecting to micro:bit: ", err);
           let errorMessage = "Failed to connect to micro:bit.";
-          if (err.message.includes('Access denied')) {
-            errorMessage += " Please ensure that you have granted USB permissions and try again.";
-          } else if (err.message.includes('no device selected')) {
-            errorMessage += " No micro:bit device was selected. Please make sure it is connected properly and try again.";
-          } else if (err.message.includes('open')) {
-            errorMessage += " Failed to open the device. Make sure no other application is using the micro:bit and try again.";
+          if (err.message.includes("Access denied")) {
+            errorMessage +=
+              " Please ensure that you have granted USB permissions and try again.";
+          } else if (err.message.includes("no device selected")) {
+            errorMessage +=
+              " No micro:bit device was selected. Please make sure it is connected properly and try again.";
+          } else if (err.message.includes("open")) {
+            errorMessage +=
+              " Failed to open the device. Make sure no other application is using the micro:bit and try again.";
           } else {
             errorMessage += " Please try again.";
           }
