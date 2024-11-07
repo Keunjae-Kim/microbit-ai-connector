@@ -34,9 +34,7 @@
           console.log('Requesting device...');
           // Request device with specific vendorId and productId for mbed serial port
           const device = await navigator.usb.requestDevice({
-            filters: [
-              { vendorId: 0x0d28, productId: 0x0204 }, // Adjust to mbed serial port productId
-            ],
+            filters: [{ vendorId: 0x0d28, productId: 0x0204 }],
           });
           console.log('Device requested:', device);
 
@@ -52,6 +50,10 @@
           console.log('Interface claimed.');
 
           console.log("Micro:bit connected");
+
+          // Display connection name
+          const portName = 'mbed Serial port - COM5'; // Adjusted for display
+          console.log(`Connected to: ${portName}`);
 
           // Proceed to the next page
           document.getElementById("page-1").classList.add("hide");
