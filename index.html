@@ -1,70 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>AI Training</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="/styles/index.css" />
-  </head>
 
-  <body>
-    <div id="page-1">
-      <div class="page-container">
-        <h1 class="title">MAKE: AI ROBOTS</h1>
-        <button id="requestPortButton" class="small-btn">
-          Connect your micro:bit to your AI!
-        </button>
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-61379406-5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-61379406-5');
+  </script>
+
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-WF39LXQ');</script>
+  <!-- End Google Tag Manager -->
+
+  <meta charset="utf-8" />
+  <title>Ai Training</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- import the webpage's stylesheet -->
+  <link rel="stylesheet" href="/static/styles/index.css" />
+  <link rel="icon" type="image/x-icon" href="/static/assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;0,800;1,400&display=swap"
+    rel="stylesheet" />
+
+  <!-- Jquery Styles -->
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+  <script src="https://button.glitch.me/button.js" data-style="glitch"></script>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WF39LXQ" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <div id='desktop-only'>
+    <h2>This Application is best used with a Desktop</h2>
+  </div>
+  <div id="page-1">
+    <div class="page-container">
+      <div class="sctn">
+        <h1 class="title">A Micro:bit of AI</h1>
+        <p class="paragraph">
+          This site will help bridge the gap between the Teachable Machine AI and a micro:bit giving you clever new
+          ways to shape your projects. Train an AI to make a prediction using a library of data you give it, and then
+          code your micro bit to use those predictions to activate motors, lights, and more! Simply click on "Pair
+          Microbit" and follow the steps to get started today!
+        </p>
+        <span class="btn-container">
+          <button id="requestPortButton">
+            <h1>Pair Microbit</h1>
+          </button>
+          <p class="paragraph btn-sub">Select the Microbit in the popup screen. Psst, it might be called mbed Serial Port.</p>
+        </span>
       </div>
+      <div class="sctn img-sctn"></div>
+      <img src="static/assets/images/microbit_yellow.png" class="microbit-img" alt="Microbit.png" />
     </div>
+    <div class="page-bottom">
+      <span>
+        <p class="paragraph des-title">If you’re arriving here first, visit Google’s Teachable Machine website to create your own Machine</p>
+        <p class="description main-des">
+          Learning project in 3 simple steps. No experience required! Teach an AI to recognize and classify audio or
+          image data, and it can tell you its prediction. The more information it has to learn from, the smarter and
+          more efficient it will be.
+        </p>
+        <span class="btn-cont">
+          <a href="https://teachablemachine.withgoogle.com/" target="_blank" id="GA-GTM-Btn-1">
+            <button class="small-btn">Google Teachable Machine</button>
+          </a>
+        </span>
+        <p class="description">
+          New to Google Teachable Machine? Follow these guidelines to learn more:
+          <a class="GA-GTM" href="https://teachablemachine.withgoogle.com/faq" target="_blank" id="GA-GTM-Lnk-1">
+            <em><strong>Guide to Teachable Machine</strong></em>
+          </a>
+        </p>
+      </span>
+      <span>
+        <p class="paragraph des-title">Never coded a micro:bit before?</p>
+        <p class="description main-des">
+          It’s simple. Visit the
+          <a href="https://makecode.microbit.org/" target="_blank" id="GA-Micro-Lnk-1">
+            <strong><em> Microbit Makecode Website </em></strong>
+          </a>
+          for tons of easy-to-follow lessons and projects. When you’re ready, download our special code to help your
+          micro:bit talk to this website. Add the code you want and we’ll get that AI to control our inventions in no
+          time at all.
+        </p>
+        <span class="btn-cont">
+          <a href="https://makecode.microbit.org/48764-76919-05919-76086" target="_blank" id="GA-Micro-Btn-1">
+            <button class="small-btn">Special Micro:bit Makecode</button>
+          </a>
+        </span>
+        <p class="description">
+          New to Microbit Makecode? Follow these guidelines to learn more:
+          <a href="https://makecode.microbit.org/" target="_blank" id="GA-Micro-Lnk-1-2">
+            <strong><em>Microbit Makecode Website</em></strong>
+          </a>
+        </p>
+      </span>
+      <span>
+        <p class="paragraph des-title">‘AI Robots’ is also a book!</p>
+        <p class="description main-des">
+          Create and challenge yourself with 8 quick projects that will teach cardboard construction, electronics, and
+          coding with a Micro:bit microcontroller. All of these projects conclude on this website, allowing you to
+          bring your creations to life with the Teachable Machine project you created.
+        </p>
+      </span>
+    </div>
+    <div class="video-section">
+      <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Lx0l5U-vVk4"
+        title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+      <span>
+        <p class="paragraph des-title">micro:bit LIVE 2021 Presentation</p>
+        <p class="description main-des">
+          We had the pleasure of presenting this web platform at the <strong>micro:bit LIVE 2021</strong> conference to showcase the projects we have developed with our friends at <strong>Strawbees</strong> in Sweden and the <strong>Teknisk Museum</strong> in Norway!
+        </p>
+      </span>
+    </div>
+  </div>
+  <div id="page-2" class="hide">
+    <div>
+      <span class="help-section">
+        <h1>Not sure what to do?</h1>
+        <p>Visit the Teachable Machine to train an AI project:</p>
+        <a href="https://teachablemachine.withgoogle.com/" target="_blank" id="GA-GTM-Btn-2">
+          <button class="small-btn">Google Teachable Machine</button>
+        </a>
+        <p>
+          New to Google Teachable Machine? Follow these guidelines to learn more:
+          <a class='GA-GTM' href="https://teachablemachine.withgoogle.com/faq" target="_blank" id="GA-GTM-Lnk-2">
+            <em><strong>Guide to Teachable Machine</strong></em>
+          </a>
+        </p>
+        <span class="instruction-container">
+          <h2>When you have finished training your model, follow these 4 simple steps:</h2>
+          <div class="instruction">
+            <p><strong>1.</strong> Click “Export Model”</p>
+            <img src="static/assets/images/TMS_1.png" class="tms-img" alt="TMS_1.png" />
+          </div>
+          <div class="instruction">
+            <p><strong>2.</strong> Click “Upload My Model”</p>
+            <img src="static/assets/images/TMS_2.png" class="tms-img" alt="TMS_2.png" />
+          </div>
+          <div class="instruction">
+            <p><strong>3.</strong> Wait a moment</p>
+            <img src="static/assets/images/TMS_3.png" class="tms-img" alt="TMS_3.png" />
+          </div>
+          <div class="instruction">
+            <p><strong>4.</strong> Click “Copy” to copy your link and paste it in the space above</p>
+            <img src="static/assets/images/TMS_4.png" class="tms-img" alt="TMS_4.png" />
+          </div>
+        </span>
+      </span>
+      <span id="connectPort">
+        <p class="sub-title">Paste your Google Teachable machine model link here:</p>
+        <span class="input-container">
+          <input id="teachableUrl" type="url"
+            placeholder="https://teachablemachine.withgoogle.com/models/[...]" pattern="https://.*" required />
+          <span id='cam-select'>
+            <p>
+              <label for="cam" class='choose-label'>Choose Camera:</label>
+              <select name="cam" id="cam"></select>
+            </p>
+          </span>
+          <span id='aud-select'>
+            <p>
+              <label for="aud" class='choose-label'>Choose Audio:</label>
+              <select name="aud" id="aud"></select>
+            </p>
+          </span>
+          <button id="submitUrl">Ready!</button>
+        </span>
+      </span>
+    </div>
+  </div>
 
-    <script>
-      const connectButton = document.getElementById("requestPortButton");
+  <script>
+    const connectButton = document.getElementById("requestPortButton");
 
-      connectButton.addEventListener("click", async () => {
-        try {
-          // Request micro:bit device
-          const device = await navigator.usb.requestDevice({
-            filters: [{ vendorId: 0x0d28 }] // micro:bit vendor ID
-          });
+    connectButton.addEventListener("click", async () => {
+      try {
+        // Request the micro:bit device using vendor ID and product ID filters.
+        const device = await navigator.usb.requestDevice({
+          filters: [{ vendorId: 0x0d28 }] // Vendor ID for micro:bit
+        });
 
-          await device.open(); // Open the device
-          if (device.configuration === null) {
-            await device.selectConfiguration(1);
-          }
+        // Open the device
+        await device.open();
 
-          // Print all available interfaces
-          console.log("Available interfaces:");
-          for (let i = 0; i < device.configuration.interfaces.length; i++) {
-            console.log(`Interface ${i}:`, device.configuration.interfaces[i]);
-          }
-
-          // Claim the appropriate interface for serial communication
-          // Typically, micro:bit uses interface 0 for serial communication
-          await device.claimInterface(0); 
-          console.log("Micro:bit connected to serial port");
-
-          // Display connected message and proceed to the next page
-          document.getElementById("page-1").classList.add("hide");
-          alert("Successfully connected to micro:bit - mbed Serial Port");
-        } catch (err) {
-          console.error("Error connecting to micro:bit: ", err);
-          let errorMessage = "Failed to connect to micro:bit.";
-          if (err.message.includes("Access denied")) {
-            errorMessage +=
-              " Please ensure that you have granted USB permissions and try again.";
-          } else if (err.message.includes("no device selected")) {
-            errorMessage +=
-              " No micro:bit device was selected. Please make sure it is connected properly and try again.";
-          } else if (err.message.includes("open")) {
-            errorMessage +=
-              " Failed to open the device. Make sure no other application is using the micro:bit and try again.";
-          } else {
-            errorMessage += " Please try again.";
-          }
-          alert(errorMessage);
+        // Select a configuration (usually the first one)
+        if (device.configuration === null) {
+          await device.selectConfiguration(1);
         }
-      });
-    </script>
-  </body>
+
+        // Print all available interfaces to identify the correct one
+        console.log("Available interfaces:");
+        for (let i = 0; i < device.configuration.interfaces.length; i++) {
+          console.log(`Interface ${i}:`, device.configuration.interfaces[i]);
+        }
+
+        // Claim the correct interface for serial communication.
+        // The "mbed Serial Port" typically uses interface 0.
+        await device.claimInterface(0);
+        console.log("Micro:bit connected to mbed Serial Port");
+
+        // Proceed to the next page if the connection is successful.
+        document.getElementById("page-1").classList.add("hide");
+        document.getElementById("page-2").classList.remove("hide");
+
+      } catch (err) {
+        console.error("Error connecting to micro:bit: ", err);
+        let errorMessage = "Failed to connect to micro:bit.";
+        if (err.message.includes("Access denied")) {
+          errorMessage +=
+            " Please ensure that you have granted USB permissions and try again.";
+        } else if (err.message.includes("no device selected")) {
+          errorMessage +=
+            " No micro:bit device was selected. Please make sure it is connected properly and try again.";
+        } else if (err.message.includes("open")) {
+          errorMessage +=
+            " Failed to open the device. Make sure no other application is using the micro:bit and try again.";
+        } else {
+          errorMessage += " Please try again.";
+        }
+        alert(errorMessage);
+      }
+    });
+  </script>
+</body>
+
 </html>
