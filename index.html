@@ -246,7 +246,11 @@
           document.getElementById("page-2").classList.remove("hide");
         } catch (err) {
           console.error("Error connecting to micro:bit: ", err);
-          alert("Failed to connect to micro:bit. Please try again.");
+          if (err.message.includes('Access denied')) {
+            alert("Failed to connect to micro:bit. Please ensure that you have granted USB permissions and try again.");
+          } else {
+            alert("Failed to connect to micro:bit. Please try again.");
+          }
         }
       });
     </script>
