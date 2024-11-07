@@ -5,22 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Connect Your micro:bit to AI</title>
     <link rel="stylesheet" href="styles.css" />
+    <style>
+        #teachableSection {
+            display: none; /* Hide this section initially */
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Connect Your micro:bit to AI</h1>
-        <p>
-            Click the button below to connect your micro:bit to your computer using WebUSB.
-        </p>
+        <p>Click the button below to connect your micro:bit to your computer using WebUSB.</p>
         <button id="requestPortButton">Connect your micro:bit to your AI!</button>
         <p id="status">
             Select the Microbit in the popup screen. It might be called "mbed Serial Port".
         </p>
     </div>
 
+    <!-- This section will be shown after a successful connection -->
+    <div id="teachableSection">
+        <h2>Not sure what to do?</h2>
+        <p>Visit the Teachable Machine to train an AI project:</p>
+        <button id="teachableMachineButton" onclick="window.open('https://teachablemachine.withgoogle.com/', '_blank')">Google Teachable Machine</button>
+        <p>
+            New to Google Teachable Machine? Follow these guidelines to learn more:
+            <a href="https://teachablemachine.withgoogle.com/faq" target="_blank"><strong>Guide to Teachable Machine</strong></a>
+        </p>
+        <h3>Paste your Google Teachable machine model link here:</h3>
+        <input type="url" id="teachableUrl" placeholder="https://teachablemachine.withgoogle.com/models/[...]" pattern="https://.*" required />
+        <br>
+        <label for="cam">Choose Camera:</label>
+        <select name="cam" id="cam"></select>
+        <br>
+        <label for="aud">Choose Audio:</label>
+        <select name="aud" id="aud"></select>
+        <br>
+        <button id="readyButton">Ready!</button>
+    </div>
+
     <script>
         const connectButton = document.getElementById("requestPortButton");
         const status = document.getElementById("status");
+        const teachableSection = document.getElementById("teachableSection");
 
         connectButton.addEventListener("click", async () => {
             try {
@@ -50,6 +75,9 @@
                 console.log("Micro:bit connected successfully");
                 status.innerText = "Micro:bit connected successfully!";
                 alert("Micro:bit connected successfully!");
+
+                // Show the Teachable Machine section after successful connection
+                teachableSection.style.display = "block";
 
             } catch (err) {
                 console.error("Error connecting to micro:bit: ", err);
