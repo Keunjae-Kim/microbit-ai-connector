@@ -1,39 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Meta tags and imports -->
     <meta charset="utf-8" />
-    <title>AI Training</title>
+    <title>AI Training with micro:bit</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/styles/index.css" />
+    <style>
+      /* Styling for sections to control visibility */
+      #page-2 {
+        display: none; /* Initially hide Page 2 */
+      }
+    </style>
   </head>
 
   <body>
+    <!-- Section representing Page 1 -->
     <div id="page-1">
       <div class="page-container">
-        <div class="sctn">
-          <h1 class="title">MAKE: AI ROBOTS</h1>
-          <p class="paragraph">
-            Give your micro:bit project AI superpowers! This site will allow
-            your micro:bit to use your computer's webcam to recognize images.
-          </p>
-
-          <!-- Button for micro:bit connection -->
-          <span class="btn-container">
-            <button id="requestPortButton">
-              3. Connect your micro:bit to your AI!
-            </button>
-            <p id="status" class="paragraph btn-sub">
-              Select the Microbit in the popup screen. It might be called "mbed Serial Port."
-            </p>
-          </span>
-        </div>
+        <h1>Connect Your micro:bit to AI</h1>
+        <p>Click the button below to connect your micro:bit to your computer using WebUSB.</p>
+        <button id="requestPortButton">Connect your micro:bit to your AI!</button>
+        <p id="status" class="paragraph btn-sub">
+          Select the Microbit in the popup screen. It might be called "mbed Serial Port."
+        </p>
       </div>
     </div>
 
-    <!-- Page 2 (Initially Hidden) -->
-    <div id="page-2" style="display: none;">
-      <h1>Not sure what to do?</h1>
+    <!-- Section representing Page 2 -->
+    <div id="page-2">
+      <h2>Not sure what to do?</h2>
       <p>Visit the Teachable Machine to train an AI project:</p>
       <button onclick="window.open('https://teachablemachine.withgoogle.com/', '_blank')">Google Teachable Machine</button>
       <p>
@@ -49,7 +44,7 @@
       const page1 = document.getElementById("page-1");
       const page2 = document.getElementById("page-2");
 
-      // Function to handle micro:bit connection
+      // JavaScript to handle the micro:bit connection and page transition
       connectButton.addEventListener("click", async () => {
         try {
           status.innerText = "Attempting to connect to micro:bit...";
@@ -79,7 +74,7 @@
           status.innerText = "Micro:bit connected successfully!";
           alert("Micro:bit connected successfully!");
 
-          // Transition to the next page (page 2)
+          // Hide Page 1 and show Page 2
           page1.style.display = "none";
           page2.style.display = "block";
 
