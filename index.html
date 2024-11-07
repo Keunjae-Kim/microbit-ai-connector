@@ -46,7 +46,7 @@
             console.log('Configuration selected.');
           }
 
-          await device.claimInterface(2); // Claim interface for mbed serial port communication
+          await device.claimInterface(0); // Claim the first available interface
           console.log('Interface claimed.');
 
           console.log("Micro:bit connected");
