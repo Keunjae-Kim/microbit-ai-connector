@@ -25,31 +25,36 @@
         connectButton.addEventListener("click", async () => {
             try {
                 status.innerText = "Attempting to connect to micro:bit...";
-                
+                console.log("Attempting to connect to micro:bit...");
+
                 // Request device with specific vendorId for micro:bit
                 const device = await navigator.usb.requestDevice({
                     filters: [{ vendorId: 0x0D28 }]
                 });
 
                 status.innerText = "Device found. Opening connection...";
+                console.log("Device found. Opening connection...");
+
                 await device.open(); // Open the device
 
                 if (device.configuration === null) {
                     status.innerText = "Selecting configuration...";
+                    console.log("Selecting configuration...");
                     await device.selectConfiguration(1);
                 }
 
                 status.innerText = "Claiming interface for communication...";
+                console.log("Claiming interface for communication...");
                 await device.claimInterface(0); // Claim interface for communication
 
-                console.log("Micro:bit connected");
+                console.log("Micro:bit connected successfully");
                 status.innerText = "Micro:bit connected successfully!";
                 alert("Micro:bit connected successfully!");
-                
+
             } catch (err) {
                 console.error("Error connecting to micro:bit: ", err);
-                status.innerText = "Failed to connect to micro:bit. Please try again. Error: " + err.message;
-                alert("Failed to connect to micro:bit. Please check console for more details.");
+                status.innerText = `Failed to connect to micro:bit. Error: ${err.message}`;
+                alert(`Failed to connect to micro:bit. Please check the console for more details.`);
             }
         });
     </script>
