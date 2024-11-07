@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Connect Your micro:bit to AI</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
     <div class="container">
         <h1>Connect Your micro:bit to AI</h1>
-        <p>Click the button below to connect your micro:bit to your computer using WebUSB.</p>
+        <p>
+            Click the button below to connect your micro:bit to your computer using WebUSB.
+        </p>
         <button id="requestPortButton">Connect your micro:bit to your AI!</button>
-        <p id="status">Select the Microbit in the popup screen. It might be called mbed Serial Port.</p>
+        <p id="status">
+            Select the Microbit in the popup screen. It might be called "mbed Serial Port".
+        </p>
     </div>
 
     <script>
@@ -20,20 +24,32 @@
 
         connectButton.addEventListener("click", async () => {
             try {
+                status.innerText = "Attempting to connect to micro:bit...";
+                
                 // Request device with specific vendorId for micro:bit
                 const device = await navigator.usb.requestDevice({
                     filters: [{ vendorId: 0x0D28 }]
                 });
+
+                status.innerText = "Device found. Opening connection...";
                 await device.open(); // Open the device
+
                 if (device.configuration === null) {
+                    status.innerText = "Selecting configuration...";
                     await device.selectConfiguration(1);
                 }
+
+                status.innerText = "Claiming interface for communication...";
                 await device.claimInterface(0); // Claim interface for communication
+
                 console.log("Micro:bit connected");
                 status.innerText = "Micro:bit connected successfully!";
+                alert("Micro:bit connected successfully!");
+                
             } catch (err) {
                 console.error("Error connecting to micro:bit: ", err);
-                status.innerText = "Failed to connect to micro:bit. Please try again.";
+                status.innerText = "Failed to connect to micro:bit. Please try again. Error: " + err.message;
+                alert("Failed to connect to micro:bit. Please check console for more details.");
             }
         });
     </script>
