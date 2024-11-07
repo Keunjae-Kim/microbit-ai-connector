@@ -4,7 +4,7 @@ const page1 = document.getElementById("page-1");
 const page2 = document.getElementById("page-2");
 
 // Function to handle micro:bit connection
-connectButton.addEventListener("click", async () => {
+async function connectToMicrobit() {
   try {
     status.innerText = "Attempting to connect to micro:bit...";
     console.log("Attempting to connect to micro:bit...");
@@ -14,13 +14,12 @@ connectButton.addEventListener("click", async () => {
       filters: [{ vendorId: 0x0D28 }]
     });
 
-    status.innerText = "Device found. Opening connection...";
+    status.innerText = "Device found. Attempting to open connection...";
     console.log("Device found. Attempting to open connection...");
 
     await device.open(); // Open the device
     console.log("Device opened.");
 
-    // Check if a configuration is already selected, otherwise select one
     if (device.configuration === null) {
       status.innerText = "Selecting configuration...";
       console.log("No configuration selected, selecting one...");
@@ -30,9 +29,7 @@ connectButton.addEventListener("click", async () => {
     status.innerText = "Claiming interface for communication...";
     console.log("Attempting to claim interface 0...");
     await device.claimInterface(0); // Claim interface for communication
-    console.log("Interface claimed successfully.");
 
-    // If everything is successful
     console.log("Micro:bit connected successfully");
     status.innerText = "Micro:bit connected successfully!";
     alert("Micro:bit connected successfully!");
@@ -45,5 +42,13 @@ connectButton.addEventListener("click", async () => {
     console.error("Error connecting to micro:bit: ", err);
     status.innerText = `Failed to connect to micro:bit. Error: ${err.message}`;
     alert("Failed to connect to micro:bit. Please check console for more details.");
+    
+    // Offer a retry button to the user
+    if (confirm("Failed to connect to micro:bit. Would you like to retry?")) {
+      connectToMicrobit(); // Retry the connection process
+    }
   }
-});
+}
+
+// Attach click event to connect button
+connectButton.addEventListener("click", connectToMicrobit);
