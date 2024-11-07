@@ -218,68 +218,78 @@
       </div>
     </div>
 
-    <script>
-      // JavaScript code to handle WebUSB connection to micro:bit and page navigation
-      const connectButton = document.getElementById("requestPortButton");
-      const cameraSelect = document.getElementById("cam");
-      const audioSelect = document.getElementById("aud");
+   <script>
+  // JavaScript code to handle WebUSB connection to micro:bit and page navigation
+  const connectButton = document.getElementById("requestPortButton");
+  const cameraSelect = document.getElementById("cam");
+  const audioSelect = document.getElementById("aud");
 
-      async function listDevices() {
-        try {
-          const devices = await navigator.mediaDevices.enumerateDevices();
-          devices.forEach(device => {
-            const option = document.createElement('option');
-            option.value = device.deviceId;
-            if (device.kind === 'videoinput') {
-              option.text = device.label || `Camera ${cameraSelect.length + 1}`;
-              cameraSelect.appendChild(option);
-            } else if (device.kind === 'audioinput') {
-              option.text = device.label || `Microphone ${audioSelect.length + 1}`;
-              audioSelect.appendChild(option);
-            }
-          });
-        } catch (error) {
-          console.error('Error listing devices: ', error);
-          alert('Failed to list devices. Please ensure permissions are granted.');
-        }
-      }
-
-      connectButton.addEventListener("click", async () => {
-        try {
-          // Request device with specific vendorId and productId for micro:bit
-          const device = await navigator.usb.requestDevice({
-            filters: [
-              { vendorId: 0x0d28, productId: 0x0204 }, // Adjust product ID if different
-            ],
-          });
-          await device.open(); // Open the device
-          if (device.configuration === null) {
-            await device.selectConfiguration(1);
-          }
-          await device.claimInterface(0); // Claim interface for communication
-          console.log("Micro:bit connected");
-
-          // Proceed to the next page
-          document.getElementById("page-1").classList.add("hide");
-          document.getElementById("page-2").classList.remove("hide");
-        } catch (err) {
-          console.error("Error connecting to micro:bit: ", err);
-          let errorMessage = "Failed to connect to micro:bit.";
-          if (err.message.includes('Access denied')) {
-            errorMessage += " Please ensure that you have granted USB permissions and try again.";
-          } else if (err.message.includes('no device selected')) {
-            errorMessage += " No micro:bit device was selected. Please make sure it is connected properly and try again.";
-          } else if (err.message.includes('open')) {
-            errorMessage += " Failed to open the device. Make sure no other application is using the micro:bit and try again.";
-          } else {
-            errorMessage += " Please try again.";
-          }
-          alert(errorMessage);
+  async function listDevices() {
+    try {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      devices.forEach(device => {
+        const option = document.createElement('option');
+        option.value = device.deviceId;
+        if (device.kind === 'videoinput') {
+          option.text = device.label || `Camera ${cameraSelect.length + 1}`;
+          cameraSelect.appendChild(option);
+        } else if (device.kind === 'audioinput') {
+          option.text = device.label || `Microphone ${audioSelect.length + 1}`;
+          audioSelect.appendChild(option);
         }
       });
+      console.log('Devices listed successfully.');
+    } catch (error) {
+      console.error('Error listing devices: ', error);
+      alert('Failed to list devices. Please ensure permissions are granted.');
+    }
+  }
 
-      // List available camera and microphone devices when the page loads
-      window.addEventListener('load', listDevices);
-    </script>
+  connectButton.addEventListener("click", async () => {
+    try {
+      console.log('Requesting device...');
+      // Request device with specific vendorId and productId for micro:bit
+      const device = await navigator.usb.requestDevice({
+        filters: [
+          { vendorId: 0x0d28, productId: 0x0204 }, // Adjust product ID if different
+        ],
+      });
+      console.log('Device requested:', device);
+
+      await device.open(); // Open the device
+      console.log('Device opened.');
+
+      if (device.configuration === null) {
+        await device.selectConfiguration(1);
+        console.log('Configuration selected.');
+      }
+
+      await device.claimInterface(0); // Claim interface for communication
+      console.log('Interface claimed.');
+
+      console.log("Micro:bit connected");
+
+      // Proceed to the next page
+      document.getElementById("page-1").classList.add("hide");
+      document.getElementById("page-2").classList.remove("hide");
+    } catch (err) {
+      console.error("Error connecting to micro:bit: ", err);
+      let errorMessage = "Failed to connect to micro:bit.";
+      if (err.message.includes('Access denied')) {
+        errorMessage += " Please ensure that you have granted USB permissions and try again.";
+      } else if (err.message.includes('no device selected')) {
+        errorMessage += " No micro:bit device was selected. Please make sure it is connected properly and try again.";
+      } else if (err.message.includes('open')) {
+        errorMessage += " Failed to open the device. Make sure no other application is using the micro:bit and try again.";
+      } else {
+        errorMessage += " Please try again.";
+      }
+      alert(errorMessage);
+    }
+  });
+
+  // List available camera and microphone devices when the page loads
+  window.addEventListener('load', listDevices);
+</script>
   </body>
 </html>
