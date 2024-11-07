@@ -221,6 +221,28 @@
     <script>
       // JavaScript code to handle WebUSB connection to micro:bit and page navigation
       const connectButton = document.getElementById("requestPortButton");
+      const cameraSelect = document.getElementById("cam");
+      const audioSelect = document.getElementById("aud");
+
+      async function listDevices() {
+        try {
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          devices.forEach(device => {
+            const option = document.createElement('option');
+            option.value = device.deviceId;
+            if (device.kind === 'videoinput') {
+              option.text = device.label || `Camera ${cameraSelect.length + 1}`;
+              cameraSelect.appendChild(option);
+            } else if (device.kind === 'audioinput') {
+              option.text = device.label || `Microphone ${audioSelect.length + 1}`;
+              audioSelect.appendChild(option);
+            }
+          });
+        } catch (error) {
+          console.error('Error listing devices: ', error);
+          alert('Failed to list devices. Please ensure permissions are granted.');
+        }
+      }
 
       connectButton.addEventListener("click", async () => {
         try {
@@ -255,6 +277,9 @@
           alert(errorMessage);
         }
       });
+
+      // List available camera and microphone devices when the page loads
+      window.addEventListener('load', listDevices);
     </script>
   </body>
 </html>
