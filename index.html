@@ -47,14 +47,21 @@ const status = document.getElementById("status");
 const page1 = document.getElementById("page-1");
 const page2 = document.getElementById("page-2");
 
+let device;
+
 // Function to handle micro:bit connection
 async function connectToMicrobit() {
   try {
+    if (device) {
+      await device.close(); // Release any existing connections
+      device = null;
+    }
+
     status.innerText = "Attempting to connect to micro:bit...";
     console.log("Attempting to connect to micro:bit...");
 
     // Request device with specific vendorId for micro:bit
-    const device = await navigator.usb.requestDevice({
+    device = await navigator.usb.requestDevice({
       filters: [{ vendorId: 0x0D28 }]
     });
 
@@ -73,9 +80,7 @@ async function connectToMicrobit() {
     status.innerText = "Claiming interface for communication...";
     console.log("Attempting to claim interface 0...");
     await device.claimInterface(0); // Claim interface for communication
-    console.log("Interface claimed successfully.");
 
-    // If everything is successful
     console.log("Micro:bit connected successfully");
     status.innerText = "Micro:bit connected successfully!";
     alert("Micro:bit connected successfully!");
@@ -98,6 +103,7 @@ async function connectToMicrobit() {
 
 // Attach click event to connect button
 connectButton.addEventListener("click", connectToMicrobit);
+
     </script>
   </body>
 </html>
