@@ -121,78 +121,6 @@
           />
         </a>
       </div>
-      <div class="page-bottom">
-        <span>
-          <p class="paragraph des-title">
-            Google Teachable Machine AI Model website
-          </p>
-          <p class="description main-des">
-            No experience required! This free website will let you use your
-            webcam to teach an AI to recognize images, or poses. You choose a
-            name for each "Class" of images you want it to recognize and pass
-            along to your micro:bit. Export your model when you're done, and
-            copy the link it gives you.
-
-            <br /><br />
-            You can also train the AI to use your microphone to recognize
-            sounds.
-          </p>
-          <span class="btn-cont">
-            <a
-              href="https://teachablemachine.withgoogle.com/"
-              target="_blank"
-              id="GA-GTM-Btn-1"
-            >
-              <button class="small-btn">
-                1. Google Teachable Machine AI Model
-              </button>
-            </a>
-          </span>
-          <p class="description">
-            New to Google Teachable Machine? Follow these guidelines to learn
-            more:
-            <a
-              class="GA-GTM"
-              href="https://teachablemachine.withgoogle.com/faq"
-              target="_blank"
-              id="GA-GTM-Lnk-1"
-              ><em><strong>Guide to Teachable Machine</strong></em></a
-            >
-          </p>
-        </span>
-        <span>
-          <p class="paragraph des-title">Starter micro:bit code</p>
-          <p class="description main-des">
-            This simple program for your micro:bit will let it receive
-            information from the AI on what it sees or hears
-
-            <br /><br />
-
-            You decide what the micro:bit does when it recognizes each "Class".
-            <br /><br />
-            Play a tune, make a happy face, move a motor. It's up to you!
-          </p>
-          <span class="btn-cont">
-            <a
-              href="https://makecode.microbit.org/_Mjw1p2JsUUUE"
-              target="_blank"
-              id="GA-Micro-Btn-1"
-            >
-              <button class="small-btn">2. Starter micro:bit code</button>
-            </a>
-          </span>
-          <p class="description">
-            New to Microbit Makecode? Follow these guidelines to learn more:
-            <a
-              href="https://makecode.microbit.org/"
-              target="_blank"
-              id="GA-Micro-Lnk-1-2"
-            >
-              <strong><em>Microbit Makecode Website</em></strong>
-            </a>
-          </p>
-        </span>
-      </div>
     </div>
 
     <div id="page-2" class="hide">
@@ -222,8 +150,8 @@
               id="GA-GTM-Lnk-2"
               onclick="fireClickEvent('btn_click', false, 'teachable_machine')"
             >
-              <em><strong>Guide to Teachable Machine</strong></em>
-            </a>
+              <em><strong>Guide to Teachable Machine</strong></em></a
+            >
           </p>
           <span class="instruction-container">
             <h2>
@@ -297,190 +225,73 @@
       </div>
     </div>
 
-    <div id="page-3" class="hide">
-      <div id="overlay"></div>
-      <div id="reconnectModal">
-        <h1>Oops!</h1>
-        <h3>
-          Looks like your camera is being used already or you may have denied
-          access. Check and close other applications where your camera is in
-          use, then click Retry when you’re ready.
-        </h3>
-        <div onclick="initImg(true)" id="reconnectCameraButton">Retry!</div>
-      </div>
-      <div class="page-container">
-        <div class="display">
-          <div class="display-container">
-            <h1 class="projectName">Loading...</h1>
-            <div class="white-bck">
-              <p class="description">
-                This is a Recognition Project - where the AI will be able to
-                identify the classes you made based on the input you give it!
-              </p>
-              <div id="results" class="hide-imp">
-                <span class="heading">
-                  <h2 id="results-heading">RESULTS!</h2>
+    <!-- Main Scripts -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      document.getElementById('requestPortButton').addEventListener('click', async () => {
+        try {
+          // Request a port and open a connection to the micro:bit
+          const port = await navigator.serial.requestPort();
+          await port.open({ baudRate: 9600 });
 
-                  <span class="popup" onclick="togglePopup('switchesPop')">
-                    Inputs
-                    <img
-                      src="assets/images/question_filled.svg"
-                      class="help-icon"
-                      alt="help icon"
-                    />
-                  </span>
-                </span>
-                <p class="settings-hidden">
-                  ( Psst remember to close the settings when you're done editing
-                  )
-                </p>
-                <span class="popuptext" id="switchesPop">
-                  <span>
-                    <p>
-                      <strong>ALWAYS WATCHING:</strong> Use this mode if you
-                      want your AI to always be looking for new information.
-                    </p>
-                    <span class="toggle-container">
-                      <label class="switch">
-                        <input type="checkbox" class="toggle-switch" disabled />
-                        <span class="slider round"></span>
-                      </label>
-                    </span>
-                  </span>
-                  <span>
-                    <p>
-                      <strong>ONE WINNER:</strong> Use this mode if you want
-                      your AI to stop after it makes a decision.
-                    </p>
-                    <span class="toggle-container">
-                      <label class="switch">
-                        <input
-                          type="checkbox"
-                          class="toggle-switch"
-                          checked
-                          disabled
-                        />
-                        <span class="slider round"></span>
-                      </label>
-                    </span>
-                  </span>
-                </span>
-                <div id="label-container"></div>
-                <span class="tolerance-container">
-                  <span class="popup" onclick="togglePopup('sliderPop')">
-                    Inputs
-                    <img
-                      src="assets/images/question_filled.svg"
-                      class="help-icon"
-                      alt="help icon"
-                    />
-                  </span>
-                  <div class="slider-container">
-                    <div id="slider"></div>
-                  </div>
-                </span>
-                <span class="popuptext" id="sliderPop">
-                  <p>
-                    This bar here helps the AI decide how sure it is in its
-                    prediction. Crank the bar all the way up if you want it to
-                    be absolutely sure of its decision, or slide it halfway for
-                    the AI to reach a decision quicker.
-                  </p>
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="help-dropdown">
-            <button class="small-btn GA-click" id="help-button">HELP!</button>
-            <div class="help-content">
-              <p><strong>Nothing is happening to my micro:bit!</strong></p>
-              <p>
-                If you haven’t coded anything onto your micro:bit yet,
-                well...nothing will happen. Visit the makecode website to make
-                your own projects, or follow some tutorials, and then use this
-                project to have the website talk to your micro:bit. Insert your
-                code into the marked areas and download your code. Your
-                micro:bit should now be springing to life with whatever
-                fantastic projects you’ve made.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="input-container">
-          <span class="control-button">
-            <span class="info-popup">
-              <button
-                onclick="fireClickEvent('btn_click', true, 'connect_microbit')"
-                id="reconnect-port"
-              >
-                Downloaded new code? Reconnect now
-              </button>
-              <span class="info-text" id="newCodeInfo">
-                <p>
-                  2. Before you upload new makecode to your microbit, click here
-                  for instructions.
-                </p>
-                <button>Next!</button>
-              </span>
-            </span>
-            <img
-              src="assets/images/info_circle.svg"
-              alt="Info Button"
-              onclick="showInstructions()"
-            />
-            <span class="info-popup">
-              <div class="settings">
-                <img
-                  src="assets/images/settings_filled.svg"
-                  onclick="toggleSettings(this)"
-                  alt="Setting Button"
-                />
-                <span class="settings-tooltip">Open Settings</span>
-              </div>
-              <span class="info-text" id="settingsInfo">
-                <p>
-                  1. Welcome to AI Judge! Click on the Settings to adjust the
-                  way your AI makes predictions.
-                </p>
-                <button>Next!</button>
-              </span>
-            </span>
-            <img
-              onclick="window.location.reload(true)"
-              src="assets/images/home_fill.svg"
-              alt="Home Button"
-            />
-          </span>
-          <div id="webcam-container" class="webcam-container"></div>
-          <div class="webcam-container">
-            <canvas id="canvas"></canvas>
-          </div>
-          <div id="audio-container">
-            <canvas id="audioCanvas" width="400" height="400"></canvas>
-          </div>
-          <div class="log-dropdown">
-            <span class="info-popup" style="width: 100%">
-              <button class="small-btn" id="message-log">
-                OPEN MESSAGE LOG
-              </button>
-              <span class="info-text" id="logInfo">
-                <p>
-                  3. Here is a record of all the actions your AI has done. You
-                  can use this Log to troubleshoot and explore!
-                </p>
-                <button>Done!</button>
-              </span>
-            </span>
-            <div class="log-content">
-              <span id="log">
-                <p class="log-paragraph" id="firstLog">
-                  Interact and your logs will show up here!
-                </p>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+          // If successful, notify the user and display the new content
+          alert('Micro:bit connected successfully!');
+          document.getElementById('page-1').style.display = 'none';
+          document.getElementById('page-2').style.display = 'block';
+
+          // Request permission to access the media devices
+          await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+          // Populate the camera and audio dropdowns
+          await populateMediaDevices();
+        } catch (error) {
+          // Handle user cancellation or connection errors
+          console.error('There was an error connecting to the micro:bit:', error);
+          alert('Failed to connect to the micro:bit. Please try again.');
+        }
+      });
+
+      async function populateMediaDevices() {
+        try {
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          const videoSelect = document.getElementById('cam');
+          const audioSelect = document.getElementById('aud');
+
+          videoSelect.innerHTML = '';
+          audioSelect.innerHTML = '';
+
+          devices.forEach((device) => {
+            const option = document.createElement('option');
+            option.value = device.deviceId;
+            option.text = device.label || `Device ${device.kind}`;
+
+            if (device.kind === 'videoinput') {
+              videoSelect.appendChild(option);
+            } else if (device.kind === 'audioinput') {
+              audioSelect.appendChild(option);
+            }
+          });
+
+          // Notify if no cameras or microphones were found
+          if (videoSelect.options.length === 0) {
+            const noVideoOption = document.createElement('option');
+            noVideoOption.text = 'No video devices found';
+            videoSelect.appendChild(noVideoOption);
+          }
+
+          if (audioSelect.options.length === 0) {
+            const noAudioOption = document.createElement('option');
+            noAudioOption.text = 'No audio devices found';
+            audioSelect.appendChild(noAudioOption);
+          }
+        } catch (error) {
+          console.error('Error populating media devices:', error);
+          alert('Unable to access media devices. Please check permissions.');
+        }
+      }
+    </script>
   </body>
 </html>
