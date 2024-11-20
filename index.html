@@ -52,17 +52,152 @@
     </div>
 
     <div id="page-1">
-      <!-- Page 1 content remains the same as previously provided -->
+      <div class="page-container">
+        <div class="sctn">
+          <h1 class="title">MICROBIT WITH AI</h1>
+          <p class="paragraph news">
+            NEW Oct 27, 2024: We have released a new AI powered chatbot for your
+            AI Robot projects! Use the power of a full large language model to
+            chat with your project and make AI powered decisions. You can access
+            the new tool at <br />
+            <span class="btn-cont">
+              <a href="https://makeAIRobots.com/chatbot" target="_blank">
+                <button class="small-btn">Chatbot Imagination Lab</button>
+              </a>
+            </span>
+          </p>
+          <br />
+          <br />
+          <p class="paragraph">
+            Give your micro:bit project AI superpowers! This site will allow
+            your micro:bit to use your computer's webcam to recognize images.
+            You can recognize facial expressions, poses, and any object you can
+            think of to put in front of your webcam! What will your micro:bit do
+            when it can tell if you're smiling, or if you've deposited the right
+            amount of coins?
+
+            <br /><br />Use the links below to get your Teachable Machine image
+            recognition model and your micro:bit starter code. Then click on the
+            third button to connect everything together!!
+          </p>
+
+          <span class="btn-cont">
+            <a
+              href="https://teachablemachine.withgoogle.com/"
+              target="_blank"
+              id="GA-GTM-Btn-1"
+            >
+              <button class="small-btn">
+                1. Google Teachable Machine AI Model
+              </button>
+            </a>
+          </span>
+          <span class="btn-cont">
+            <a
+              href="https://makecode.microbit.org/_Mjw1p2JsUUUE"
+              target="_blank"
+              id="GA-Micro-Btn-1"
+            >
+              <button class="small-btn">2. Starter micro:bit code</button>
+            </a>
+          </span>
+
+          <span class="btn-container">
+            <button id="requestPortButton">
+              <h1>3. Connect your micro:bit to your AI!</h1>
+            </button>
+            <p class="paragraph btn-sub">
+              Select the Microbit in the popup screen. Psst, it might be called
+              mbed Serial Port.
+            </p>
+          </span>
+        </div>
+        <div class="sctn img-sctn"></div>
+        <a href="https://www.makershed.com/products/make-ai-robots-print">
+          <img
+            src="/assets/images/robot.webp"
+            class="microbit-img"
+            alt="Microbit.png"
+          />
+        </a>
+      </div>
     </div>
 
     <div id="page-2" class="hide">
       <div>
         <span class="help-section">
-          <!-- Help Section content remains the same -->
+          <h1>Not sure what to do?</h1>
+          <p>Visit the Teachable Machine to train an AI project:</p>
+          <a
+            href="https://teachablemachine.withgoogle.com/"
+            target="_blank"
+            id="GA-GTM-Btn-2"
+          >
+            <button
+              onclick="fireClickEvent('btn_click', false, 'teachable_machine')"
+              class="small-btn"
+            >
+              Google Teachable Machine
+            </button>
+          </a>
+          <p>
+            New to Google Teachable Machine? Follow these guidelines to learn
+            more:
+            <a
+              class="GA-GTM"
+              href="https://teachablemachine.withgoogle.com/faq"
+              target="_blank"
+              id="GA-GTM-Lnk-2"
+              onclick="fireClickEvent('btn_click', false, 'teachable_machine')"
+            >
+              <em><strong>Guide to Teachable Machine</strong></em></a
+            >
+          </p>
+          <span class="instruction-container">
+            <h2>
+              When you have finished training your model, follow these 4 simple
+              steps:
+            </h2>
+            <div class="instruction">
+              <p><strong>1.</strong> Click “Export Model”</p>
+              <img
+                src="assets/images/TMS_1.png"
+                class="tms-img"
+                alt="TMS_1.png"
+              />
+            </div>
+            <div class="instruction">
+              <p><strong>2.</strong> Click “Upload My Model”</p>
+              <img
+                src="assets/images/TMS_2.png"
+                class="tms-img"
+                alt="TMS_2.png"
+              />
+            </div>
+            <div class="instruction">
+              <p><strong>3.</strong> Wait a moment</p>
+              <img
+                src="assets/images/TMS_3.png"
+                class="tms-img"
+                alt="TMS_3.png"
+              />
+            </div>
+            <div class="instruction">
+              <p>
+                <strong>4.</strong> Click “Copy” to copy your link and paste it
+                in the space above
+              </p>
+              <img
+                src="assets/images/TMS_4.png"
+                class="tms-img"
+                alt="TMS_4.png"
+              />
+            </div>
+          </span>
         </span>
         <span id="connectPort">
           <p class="sub-title">
-            Paste your Google Teachable Machine model link here:
+            Paste your Google Teachable machine model link here:
           </p>
           <span class="input-container">
             <input
@@ -90,73 +225,13 @@
       </div>
     </div>
 
-    <div id="page-3" class="hide">
-      <!-- Page 3 content as provided in your specification -->
-    </div>
-
     <!-- Main Scripts -->
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
-
     <script>
-      let model;
-      let webcam;
-
-      // Handling 'Ready' button click
-      document.getElementById('submitUrl').addEventListener('click', async () => {
-        const modelUrl = document.getElementById('teachableUrl').value;
-        const videoSelect = document.getElementById('cam');
-        const audioSelect = document.getElementById('aud');
-
-        if (modelUrl === '' || videoSelect.selectedIndex === -1 || audioSelect.selectedIndex === -1) {
-          alert('Please fill in all fields before continuing.');
-          return;
-        }
-
-        try {
-          // Load Teachable Machine Model
-          model = await tmImage.load(modelUrl + '/model.json', modelUrl + '/metadata.json');
-          alert('Model loaded successfully!');
-
-          // Hide Page 2 and show Page 3
-          document.getElementById('page-2').style.display = 'none';
-          document.getElementById('page-3').style.display = 'block';
-
-          // Start webcam and display it on page 3
-          const webcamElement = document.getElementById('webcam-container');
-          webcam = new tmImage.Webcam(200, 200, true);
-          await webcam.setup(); // request access to the webcam
-          await webcam.play();
-          window.requestAnimationFrame(loop);
-
-          webcamElement.appendChild(webcam.canvas);
-
-        } catch (error) {
-          console.error('Error loading the model or initializing the webcam:', error);
-          alert('Error: Unable to load the model or initialize webcam.');
-        }
-      });
-
-      // Webcam recognition loop
-      async function loop() {
-        webcam.update(); // update the webcam frame
-        await predict();
-        window.requestAnimationFrame(loop);
-      }
-
-      // Function to predict the class of the image on the webcam
-      async function predict() {
-        if (!model) return;
-
-        const prediction = await model.predict(webcam.canvas);
-        document.getElementById('results-heading').innerText = `RESULTS! ${prediction[0].className}: ${prediction[0].probability.toFixed(2)}`;
-      }
-
       document.getElementById('requestPortButton').addEventListener('click', async () => {
         try {
           // Request a port and open a connection to the micro:bit
