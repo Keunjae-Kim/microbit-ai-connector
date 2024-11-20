@@ -130,6 +130,108 @@
       </div>
     </div>
 
+    <div id="page-2" class="hide">
+      <div>
+        <span class="help-section">
+          <h1>Not sure what to do?</h1>
+          <p>Visit the Teachable Machine to train an AI project:</p>
+          <a
+            href="https://teachablemachine.withgoogle.com/"
+            target="_blank"
+            id="GA-GTM-Btn-2"
+          >
+            <button
+              onclick="fireClickEvent('btn_click', false, 'teachable_machine')"
+              class="small-btn"
+            >
+              Google Teachable Machine
+            </button>
+          </a>
+          <p>
+            New to Google Teachable Machine? Follow these guidelines to learn
+            more:
+            <a
+              class="GA-GTM"
+              href="https://teachablemachine.withgoogle.com/faq"
+              target="_blank"
+              id="GA-GTM-Lnk-2"
+              onclick="fireClickEvent('btn_click', false, 'teachable_machine')"
+            >
+              <em><strong>Guide to Teachable Machine</strong></em></a
+            >
+          </p>
+          <span class="instruction-container">
+            <h2>
+              When you have finished training your model, follow these 4 simple
+              steps:
+            </h2>
+            <div class="instruction">
+              <p><strong>1.</strong> Click “Export Model”</p>
+              <img
+                src="assets/images/TMS_1.png"
+                class="tms-img"
+                alt="TMS_1.png"
+              />
+            </div>
+            <div class="instruction">
+              <p><strong>2.</strong> Click “Upload My Model”</p>
+              <img
+                src="assets/images/TMS_2.png"
+                class="tms-img"
+                alt="TMS_2.png"
+              />
+            </div>
+            <div class="instruction">
+              <p><strong>3.</strong> Wait a moment</p>
+              <img
+                src="assets/images/TMS_3.png"
+                class="tms-img"
+                alt="TMS_3.png"
+              />
+            </div>
+            <div class="instruction">
+              <p>
+                <strong>4.</strong> Click “Copy” to copy your link and paste it
+                in the space above
+              </p>
+              <img
+                src="assets/images/TMS_4.png"
+                class="tms-img"
+                alt="TMS_4.png"
+              />
+            </div>
+          </span>
+        </span>
+        <span id="connectPort">
+          <p class="sub-title">
+            Paste your Google Teachable machine model link here:
+          </p>
+          <span class="input-container">
+            <input
+              id="teachableUrl"
+              type="url"
+              placeholder="https://teachablemachine.withgoogle.com/models/[...]"
+              pattern="https://.*"
+              required
+            />
+            <span id="cam-select">
+              <p>
+                <label for="cam" class="choose-label">Choose Camera:</label>
+                <select name="cam" id="cam"></select>
+              </p>
+            </span>
+            <span id="aud-select">
+              <p>
+                <label for="aud" class="choose-label">Choose Audio:</label>
+                <select name="aud" id="aud"></select>
+              </p>
+            </span>
+            <button id="submitUrl">Ready!</button>
+          </span>
+        </span>
+      </div>
+    </div>
+
     <!-- Socket.io -->
     <script
       src="https://cdn.socket.io/3.1.3/socket.io.min.js"
@@ -156,8 +258,8 @@
 
           // If successful, notify the user and display the new content
           alert('Micro:bit connected successfully!');
-          document.getElementById('page-1').classList.add('hide');
-          document.getElementById('page-2').classList.remove('hide');
+          document.getElementById('page-1').style.display = 'none';
+          document.getElementById('page-2').style.display = 'block';
         } catch (error) {
           // Handle user cancellation or connection errors
           console.error('There was an error connecting to the micro:bit:', error);
