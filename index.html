@@ -260,12 +260,54 @@
           alert('Micro:bit connected successfully!');
           document.getElementById('page-1').style.display = 'none';
           document.getElementById('page-2').style.display = 'block';
+
+          // Populate the camera and audio dropdowns
+          await populateMediaDevices();
         } catch (error) {
           // Handle user cancellation or connection errors
           console.error('There was an error connecting to the micro:bit:', error);
           alert('Failed to connect to the micro:bit. Please try again.');
         }
       });
+
+      async function populateMediaDevices() {
+        try {
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          const videoSelect = document.getElementById('cam');
+          const audioSelect = document.getElementById('aud');
+
+          videoSelect.innerHTML = '';
+          audioSelect.innerHTML = '';
+
+          devices.forEach((device) => {
+            const option = document.createElement('option');
+            option.value = device.deviceId;
+            option.text = device.label || `Device ${device.kind}`;
+
+            if (device.kind === 'videoinput') {
+              videoSelect.appendChild(option);
+            } else if (device.kind === 'audioinput') {
+              audioSelect.appendChild(option);
+            }
+          });
+
+          // Notify if no cameras or microphones were found
+          if (videoSelect.options.length === 0) {
+            const noVideoOption = document.createElement('option');
+            noVideoOption.text = 'No video devices found';
+            videoSelect.appendChild(noVideoOption);
+          }
+
+          if (audioSelect.options.length === 0) {
+            const noAudioOption = document.createElement('option');
+            noAudioOption.text = 'No audio devices found';
+            audioSelect.appendChild(noAudioOption);
+          }
+        } catch (error) {
+          console.error('Error populating media devices:', error);
+          alert('Unable to access media devices. Please check permissions.');
+        }
+      }
     </script>
   </body>
 </html>
