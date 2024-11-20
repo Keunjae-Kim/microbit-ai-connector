@@ -51,6 +51,7 @@
       <h2>This Application is best used with a Desktop</h2>
     </div>
 
+    <!-- Page 1: Initial setup -->
     <div id="page-1">
       <div class="page-container">
         <div class="sctn">
@@ -66,8 +67,7 @@
               </a>
             </span>
           </p>
-          <br />
-          <br />
+          <br /><br />
           <p class="paragraph">
             Give your micro:bit project AI superpowers! This site will allow
             your micro:bit to use your computer's webcam to recognize images.
@@ -123,6 +123,7 @@
       </div>
     </div>
 
+    <!-- Page 2: Model setup -->
     <div id="page-2" class="hide">
       <div>
         <span class="help-section">
@@ -133,10 +134,7 @@
             target="_blank"
             id="GA-GTM-Btn-2"
           >
-            <button
-              onclick="fireClickEvent('btn_click', false, 'teachable_machine')"
-              class="small-btn"
-            >
+            <button class="small-btn">
               Google Teachable Machine
             </button>
           </a>
@@ -148,10 +146,9 @@
               href="https://teachablemachine.withgoogle.com/faq"
               target="_blank"
               id="GA-GTM-Lnk-2"
-              onclick="fireClickEvent('btn_click', false, 'teachable_machine')"
             >
-              <em><strong>Guide to Teachable Machine</strong></em></a
-            >
+              <em><strong>Guide to Teachable Machine</strong></em>
+            </a>
           </p>
           <span class="instruction-container">
             <h2>
@@ -225,6 +222,27 @@
       </div>
     </div>
 
+    <!-- Page 3: AI Recognition -->
+    <div id="page-3" class="hide">
+      <div id="overlay"></div>
+      <div class="page-container">
+        <div class="display">
+          <div class="display-container">
+            <h1 class="projectName">Loading...</h1>
+            <div class="white-bck">
+              <p class="description">
+                This is a Recognition Project - where the AI will be able to
+                identify the classes you made based on the input you give it!
+              </p>
+              <div id="results" class="hide-imp">
+                <!-- Display AI recognition results here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Main Scripts -->
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -240,8 +258,8 @@
 
           // If successful, notify the user and display the new content
           alert('Micro:bit connected successfully!');
-          document.getElementById('page-1').style.display = 'none';
-          document.getElementById('page-2').style.display = 'block';
+          document.getElementById('page-1').classList.add('hide');
+          document.getElementById('page-2').classList.remove('hide');
 
           // Request permission to access the media devices
           await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
@@ -251,6 +269,18 @@
           // Handle user cancellation or connection errors
           console.error('There was an error connecting to the micro:bit:', error);
           alert('Failed to connect to the micro:bit. Please try again.');
+        }
+      });
+
+      document.getElementById('submitUrl').addEventListener('click', () => {
+        const teachableUrl = document.getElementById('teachableUrl').value;
+        if (teachableUrl) {
+          document.getElementById('page-2').classList.add('hide');
+          document.getElementById('page-3').classList.remove('hide');
+          // Load Teachable Machine model here
+          console.log('Loading model:', teachableUrl);
+        } else {
+          alert('Please paste your Teachable Machine model link.');
         }
       });
 
@@ -275,7 +305,6 @@
             }
           });
 
-          // Notify if no cameras or microphones were found
           if (videoSelect.options.length === 0) {
             const noVideoOption = document.createElement('option');
             noVideoOption.text = 'No video devices found';
