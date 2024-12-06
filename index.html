@@ -101,6 +101,17 @@
       </div>
     </div>
 
+    <div id="page-3" style="display: none;">
+      <div class="page-container">
+        <h1>AI Model Prediction Results</h1>
+        <p>Here are your AI model predictions:</p>
+        <div id="results">
+          <!-- Prediction results will be displayed here -->
+        </div>
+        <button id="backToHome">Back to Home</button>
+      </div>
+    </div>
+
     <script>
       let model;
       const video = document.getElementById('webcam');
@@ -122,13 +133,19 @@
         try {
           model = await tf.loadGraphModel(url + '/model.json');
           statusText.innerText = 'AI Model Loaded Successfully!';
-          videoContainer.style.display = 'block';
+          document.getElementById('page-1').style.display = 'none';
+          document.getElementById('page-3').style.display = 'block';
           setupCamera();
         } catch (error) {
           console.error('Error loading AI model:', error);
           statusText.innerText = 'Failed to Load AI Model';
           alert('Please check the AI model URL and try again.');
         }
+      });
+
+      document.getElementById('backToHome').addEventListener('click', () => {
+        document.getElementById('page-3').style.display = 'none';
+        document.getElementById('page-1').style.display = 'block';
       });
 
       async function setupCamera() {
